@@ -1,0 +1,37 @@
+.recipeTable {
+    margin: 20px 0 15px 0;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.recipeTable, .recipeWrapper {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.well {
+  padding-bottom: 25px;
+}
+
+.panel {
+  margin: 0 10px 4px 10px;
+  background: white !important;
+}
+
+.panel-heading {
+  padding: 18px;
+}
+
+.panel-body .panel {
+  padding: 10px;
+}
+
+.panel-body .btn {
+  margin: 20px 0 0 11px;
+}
+
+hr {
+  margin: 20px;
+}
