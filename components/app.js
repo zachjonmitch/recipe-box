@@ -55,7 +55,7 @@ export default class App extends Component {
     return (
       <div>
         <Recipes recipeList={this.state.recipeList} deleteItem={this._deleteItem} editItem={this._editItem} handleRecipeChange={this._handleRecipeChange} handleIngredientsChange={this._handleIngredientsChange} />
-        <AddRecipeModal recipeList={this.state.recipeList} handleSubmit={this._handleSubmit} handleRecipeChange={this._handleRecipeChange} handleIngredientsChange={this._handleIngredientsChange}/>
+        <AddRecipeModal recipeList={this.state.recipeList} handleSubmit={this._handleSubmit} handleRecipeChange={this._handleRecipeChange} handleIngredientsChange={this._handleIngredientsChange} />
       </div>
     );
   }

@@ -9870,20 +9870,20 @@ var Recipes = function Recipes(_ref) {
 
     var count = 0;
 
-    var Items = recipeList.map(function (recipe) {
+    var Items = recipeList.map(function (recipe, index) {
         count++;
 
-        var itemIngredients = recipe.ingredients.map(function (ingredient) {
+        var itemIngredients = recipe.ingredients.map(function (ingredient, index) {
             return _react2.default.createElement(
                 "div",
-                { className: "panel panel-default" },
+                { className: "panel panel-default", key: index },
                 ingredient
             );
         });
 
         return _react2.default.createElement(
             "div",
-            { className: "panel panel-success" },
+            { className: "panel panel-success", key: index },
             _react2.default.createElement(
                 "div",
                 { className: "panel-heading" },

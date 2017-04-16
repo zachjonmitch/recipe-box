@@ -3,15 +3,15 @@ import React from 'react';
 const Recipes = ({ recipeList, deleteItem, editItem, handleIngredientsChange, handleRecipeChange}) => {
     let count = 0
     
-    const Items = recipeList.map((recipe) => {
+    const Items = recipeList.map((recipe, index) => {
         count++
         
-        const itemIngredients = recipe.ingredients.map((ingredient) => {
-            return <div className="panel panel-default">{ingredient}</div>
+        const itemIngredients = recipe.ingredients.map((ingredient, index) => {
+            return <div className="panel panel-default" key={index} >{ingredient}</div>
         });
         
         return (
-                    <div className="panel panel-success">
+                    <div className="panel panel-success" key={index}>
                         <div className="panel-heading">
                             <h4 className="panel-title">
                                 <a data-toggle="collapse" href={`#collapse${count}`}>{recipe.title}</a>
