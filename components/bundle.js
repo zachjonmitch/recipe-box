@@ -9862,7 +9862,11 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Recipes = function Recipes(_ref) {
-    var recipeList = _ref.recipeList;
+    var recipeList = _ref.recipeList,
+        deleteItem = _ref.deleteItem,
+        editItem = _ref.editItem,
+        handleIngredientsChange = _ref.handleIngredientsChange,
+        handleRecipeChange = _ref.handleRecipeChange;
 
     var count = 0;
 
@@ -9912,13 +9916,87 @@ var Recipes = function Recipes(_ref) {
                     ),
                     _react2.default.createElement(
                         "button",
-                        { className: "btn btn-danger" },
+                        { className: "btn btn-danger", onClick: function onClick() {
+                                return deleteItem(recipe);
+                            } },
                         "Delete"
                     ),
                     _react2.default.createElement(
                         "button",
-                        { className: "btn btn-default" },
+                        { className: "btn btn-default", type: "button", "data-toggle": "modal", "data-target": "#myModal" + count },
                         "Edit"
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "modal fade", id: "myModal" + count, role: "dialog" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "modal-dialog" },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "modal-content" },
+                                _react2.default.createElement(
+                                    "div",
+                                    { className: "modal-header" },
+                                    _react2.default.createElement(
+                                        "button",
+                                        { type: "button", className: "close", "data-dismiss": "modal" },
+                                        "\xD7"
+                                    ),
+                                    _react2.default.createElement(
+                                        "h4",
+                                        { className: "modal-title" },
+                                        "Edit Recipe"
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    "div",
+                                    { className: "modal-body" },
+                                    _react2.default.createElement(
+                                        "form",
+                                        null,
+                                        _react2.default.createElement(
+                                            "div",
+                                            { className: "form-group" },
+                                            _react2.default.createElement(
+                                                "label",
+                                                null,
+                                                "Recipe",
+                                                _react2.default.createElement("br", null)
+                                            ),
+                                            _react2.default.createElement("input", { type: "text", className: "form-control", placeholder: "Recipe Name", id: "recipeTitle", onChange: handleRecipeChange })
+                                        ),
+                                        _react2.default.createElement(
+                                            "div",
+                                            { className: "form-group" },
+                                            _react2.default.createElement(
+                                                "label",
+                                                null,
+                                                "Ingredients"
+                                            ),
+                                            _react2.default.createElement("br", null),
+                                            _react2.default.createElement("textarea", { type: "textarea", className: "form-control", rows: "2", placeholder: "Enter Ingredients,Separated,By Commas", id: "recipeIngredients", onChange: handleIngredientsChange })
+                                        )
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    "div",
+                                    { className: "modal-footer" },
+                                    _react2.default.createElement(
+                                        "button",
+                                        { type: "button", className: "btn btn-primary", onClick: function onClick() {
+                                                return editItem(recipe);
+                                            } },
+                                        "Edit Recipe"
+                                    ),
+                                    _react2.default.createElement(
+                                        "button",
+                                        { type: "button", className: "btn btn-default", "data-dismiss": "modal" },
+                                        "Close"
+                                    )
+                                )
+                            )
+                        )
                     )
                 )
             )
@@ -22239,6 +22317,8 @@ var App = function (_Component) {
     _this._handleSubmit = _this._handleSubmit.bind(_this);
     _this._handleRecipeChange = _this._handleRecipeChange.bind(_this);
     _this._handleIngredientsChange = _this._handleIngredientsChange.bind(_this);
+    _this._deleteItem = _this._deleteItem.bind(_this);
+    _this._editItem = _this._editItem.bind(_this);
     return _this;
   }
 
@@ -22246,13 +22326,11 @@ var App = function (_Component) {
     key: '_handleRecipeChange',
     value: function _handleRecipeChange(e) {
       this.setState({ newRecipeTitle: e.target.value });
-      console.log(this.state.newRecipeTitle);
     }
   }, {
     key: '_handleIngredientsChange',
     value: function _handleIngredientsChange(e) {
       this.setState({ newRecipeIngredients: e.target.value.split(',') });
-      console.log(this.state.newRecipeIngredients);
     }
   }, {
     key: '_handleSubmit',
@@ -22261,12 +22339,29 @@ var App = function (_Component) {
       this.setState({ recipeList: this.state.recipeList.concat(newRecipe) });
     }
   }, {
+    key: '_editItem',
+    value: function _editItem(recipe) {
+      var array = this.state.recipeList;
+      var index = array.indexOf(recipe);
+      var recipeList = array.slice();
+      recipeList[index] = { title: this.state.newRecipeTitle, ingredients: this.state.newRecipeIngredients };
+      this.setState({ recipeList: recipeList });
+    }
+  }, {
+    key: '_deleteItem',
+    value: function _deleteItem(recipe) {
+      var array = this.state.recipeList;
+      var index = array.indexOf(recipe);
+      array.splice(index, 1);
+      this.setState({ recipeList: array });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_recipes2.default, { recipeList: this.state.recipeList }),
+        _react2.default.createElement(_recipes2.default, { recipeList: this.state.recipeList, deleteItem: this._deleteItem, editItem: this._editItem, handleRecipeChange: this._handleRecipeChange, handleIngredientsChange: this._handleIngredientsChange }),
         _react2.default.createElement(_addRecipe2.default, { recipeList: this.state.recipeList, handleSubmit: this._handleSubmit, handleRecipeChange: this._handleRecipeChange, handleIngredientsChange: this._handleIngredientsChange })
       );
     }
